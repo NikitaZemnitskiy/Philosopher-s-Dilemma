@@ -7,11 +7,11 @@ public class Main {
         Fork fork4 = new Fork();
         Fork fork5 = new Fork();
 
-        Filosoph nikita = new Filosoph(fork1,fork2,"nikita");
-        Filosoph aristitel = new Filosoph(fork2, fork3,"aristotel");
-        Filosoph platon = new Filosoph(fork3,fork4,"platon");
-        Filosoph schopenhauer = new Filosoph(fork4,fork5,"shopenhauer");
-        Filosoph nicsche = new Filosoph(fork5, fork1,"nitsche");
+        Filosoph nikita = new Filosoph(fork1,fork2,"nikita",100,200);
+        Filosoph aristitel = new Filosoph(fork2, fork3,"aristotel",150,250);
+        Filosoph platon = new Filosoph(fork3,fork4,"platon", 250,270);
+        Filosoph schopenhauer = new Filosoph(fork4,fork5,"shopenhauer",75,220);
+        Filosoph nicsche = new Filosoph(fork5, fork1,"nitsche",100,200);
 
 
         Thread thread1 = new Thread(aristitel);
@@ -24,12 +24,20 @@ public class Main {
         thread3.start();
         thread4.start();
         thread5.start();
-        Thread.sleep(15000);
-        System.out.println("Platon ate " + platon.eatTimes + " times");
-        System.out.println("Aristotel ate " + aristitel.eatTimes + " times");
-        System.out.println("Nitsche ate " + nicsche.eatTimes + " times");
-        System.out.println("Schopenhauer ate " + schopenhauer.eatTimes + " times");
-        System.out.println("Nikita ate " + nikita.eatTimes + " times");
+        Thread.sleep(12000);
+        System.out.println("Platon ate " + platon.getEatTimes() + " times");
+        System.out.println("Aristotel ate " + aristitel.getEatTimes() + " times");
+        System.out.println("Nitsche ate " + nicsche.getEatTimes() + " times");
+        System.out.println("Schopenhauer ate " + schopenhauer.getEatTimes() + " times");
+        System.out.println("Nikita ate " + nikita.getEatTimes() + " times");
+        System.out.println("--------------------------------");
+        System.out.println("Platon ate " + platon.getEatTime() + " ms");
+        System.out.println("Aristotel ate " + aristitel.getEatTime() + " ms");
+        System.out.println("Nitsche ate " + nicsche.getEatTime() + " ms");
+        System.out.println("Schopenhauer ate " + schopenhauer.getEatTime() + " ms");
+        System.out.println("Nikita ate " + nikita.getEatTime() + " ms");
+        long a = nikita.getEatTime()+platon.getEatTime()+nicsche.getEatTime()+schopenhauer.getEatTime()+aristitel.getEatTime();
+        System.out.println("All philosophies spend "+a+" ms on the dinner today");
         System.exit(0);
 
     }
