@@ -33,6 +33,9 @@
     </option>
   </component>
   <component name="ProjectId" id="1XDc6zEhZyTCWheGykeoKB79lcA" />
+  <component name="PropertiesComponent">
+    <property name="SONARLINT_PRECOMMIT_ANALYSIS" value="true" />
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
