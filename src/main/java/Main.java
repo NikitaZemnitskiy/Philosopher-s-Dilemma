@@ -7,11 +7,11 @@ public class Main {
         Fork fork4 = new Fork();
         Fork fork5 = new Fork();
 
-        Filosoph nikita = new Filosoph(fork1,fork2,"nikita",100,200);
-        Filosoph aristitel = new Filosoph(fork2, fork3,"aristotel",150,250);
-        Filosoph platon = new Filosoph(fork3,fork4,"platon", 250,270);
-        Filosoph schopenhauer = new Filosoph(fork4,fork5,"shopenhauer",75,220);
-        Filosoph nicsche = new Filosoph(fork5, fork1,"nitsche",100,200);
+        Filosoph nikita = new Filosoph(fork1,fork2,"nikita",10,20);
+        Filosoph aristitel = new Filosoph(fork2, fork3,"aristotel",15,25);
+        Filosoph platon = new Filosoph(fork3,fork4,"platon", 20,27);
+        Filosoph schopenhauer = new Filosoph(fork4,fork5,"shopenhauer",5,22);
+        Filosoph nicsche = new Filosoph(fork5, fork1,"nitsche",10,20);
 
 
         Thread thread1 = new Thread(aristitel);

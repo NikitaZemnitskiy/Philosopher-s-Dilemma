@@ -2,12 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0e8e477d-56b9-4c05-949b-621f012696c4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Filosoph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Filosoph.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Fork.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Fork.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Filosoph.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Filosoph.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Fork.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Fork.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Test.class" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -81,6 +83,21 @@
       <option name="presentableId" value="Default" />
       <updated>1580755745804</updated>
     </task>
+    <task id="LOCAL-00001" summary="lock added">
+      <created>1580763914891</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1580763914891</updated>
+    </task>
+    <task id="LOCAL-00002" summary="DeletedTestClass">
+      <created>1580763935767</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1580763935767</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -93,5 +110,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="lock added" />
+    <MESSAGE value="DeletedTestClass" />
+    <option name="LAST_COMMIT_MESSAGE" value="DeletedTestClass" />
   </component>
 </project>
