@@ -37,9 +37,10 @@ public class Filosoph implements Runnable {
     }
 
     public void run() {
-            while (true) {
-                if(!leftHandFork.takeFork(this)){
-                    if(rightHandFork.owner==this) {
+        while (!Thread.currentThread().isInterrupted()) {
+            try {
+                if (!leftHandFork.takeFork(this)) {
+                    if (rightHandFork.owner == this) {
                         System.out.println(name + " don't hold a right hand fork now");
                         rightHandFork.leftFork(this);
                     }
@@ -50,8 +51,8 @@ public class Filosoph implements Runnable {
                     }
                     continue;
                 }
-                if(!rightHandFork.takeFork(this)){
-                    if(leftHandFork.owner == this) {
+                if (!rightHandFork.takeFork(this)) {
+                    if (leftHandFork.owner == this) {
                         System.out.println(name + " don't hold a left hand fork now");
                         leftHandFork.leftFork(this);
                     }
@@ -63,19 +64,23 @@ public class Filosoph implements Runnable {
                     continue;
                 }
                 Date startEating = new Date();
-                    try {
-                        Thread.sleep(ThreadLocalRandom.current() .nextInt(minEatTime, maxEatTime));
-                        eatTimes++;
-                           leftHandFork.leftFork(this);
-                           rightHandFork.leftFork(this);
-                           Date endEating = new Date();
-                           eatTime = (eatTime+(endEating.getTime()-startEating.getTime()));
-                        System.out.println(name +" stoped dinner and he is thinking now");
-                           Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    Thread.sleep(ThreadLocalRandom.current().nextInt(minEatTime, maxEatTime));
+                    eatTimes++;
+                    leftHandFork.leftFork(this);
+                    rightHandFork.leftFork(this);
+                    Date endEating = new Date();
+                    eatTime = (eatTime + (endEating.getTime() - startEating.getTime()));
+                    System.out.println(name + " stoped dinner and he is thinking now");
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            } catch (InterruptedException e) {
+                return;
             }
         }
     }
+}
 
