@@ -1,44 +1,43 @@
+import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicLong;
+
+@Slf4j
 public class Main {
+
     public static void main(String[] args) throws InterruptedException {
-        Fork fork1 = new Fork();
-        Fork fork2 = new Fork();
-        Fork fork3 = new Fork();
-        Fork fork4 = new Fork();
-        Fork fork5 = new Fork();
+        List<Fork> forkList = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            forkList.add(new Fork());
+        }
+        List<Philosopher> philosophers = new ArrayList<>();
+        philosophers.add(new Philosopher(forkList.get(0), forkList.get(1), "nikita", 10, 20));
+        philosophers.add(new Philosopher(forkList.get(1), forkList.get(2), "aristotel", 15, 25));
+        philosophers.add(new Philosopher(forkList.get(2), forkList.get(3), "platon", 20, 27));
+        philosophers.add(new Philosopher(forkList.get(3), forkList.get(4), "shopenhauer", 5, 22));
+        philosophers.add(new Philosopher(forkList.get(4), forkList.get(0), "nitsche", 10, 20));
 
-        Filosoph nikita = new Filosoph(fork1,fork2,"nikita",10,20);
-        Filosoph aristitel = new Filosoph(fork2, fork3,"aristotel",15,25);
-        Filosoph platon = new Filosoph(fork3,fork4,"platon", 20,27);
-        Filosoph schopenhauer = new Filosoph(fork4,fork5,"shopenhauer",5,22);
-        Filosoph nicsche = new Filosoph(fork5, fork1,"nitsche",10,20);
-
-
-        Thread thread1 = new Thread(aristitel);
-        Thread thread2 = new Thread(platon);
-        Thread thread3 = new Thread(nicsche);
-        Thread thread4 = new Thread(schopenhauer);
-        Thread thread5 = new Thread(nikita);
-        thread1.start();
-        thread2.start();
-        thread3.start();
-        thread4.start();
-        thread5.start();
+        ExecutorService philosophersThreadPool = Executors.newFixedThreadPool(5);
+        for (Philosopher p : philosophers) {
+            philosophersThreadPool.submit(p);
+        }
         Thread.sleep(12000);
-        System.out.println("Platon ate " + platon.getEatTimes() + " times");
-        System.out.println("Aristotel ate " + aristitel.getEatTimes() + " times");
-        System.out.println("Nitsche ate " + nicsche.getEatTimes() + " times");
-        System.out.println("Schopenhauer ate " + schopenhauer.getEatTimes() + " times");
-        System.out.println("Nikita ate " + nikita.getEatTimes() + " times");
-        System.out.println("--------------------------------");
-        System.out.println("Platon ate " + platon.getEatTime() + " ms");
-        System.out.println("Aristotel ate " + aristitel.getEatTime() + " ms");
-        System.out.println("Nitsche ate " + nicsche.getEatTime() + " ms");
-        System.out.println("Schopenhauer ate " + schopenhauer.getEatTime() + " ms");
-        System.out.println("Nikita ate " + nikita.getEatTime() + " ms");
-        long a = nikita.getEatTime()+platon.getEatTime()+nicsche.getEatTime()+schopenhauer.getEatTime()+aristitel.getEatTime();
-        System.out.println("All philosophies spend "+a+" ms on the dinner today");
-        System.exit(0);
+        if (philosophersThreadPool.shutdownNow().size() != 0) {
+            throw new IllegalStateException("Failed threads shutdown");
+        }
+        AtomicLong totalEatTime = new AtomicLong();
+        philosophers.stream().forEach(
+                p -> {
+                    log.info("--------"+p.getName()+"----------");
+                    log.info(p.getName() + " ate " + p.getEatTimes() + " times");
+                    log.info(p.getName() + " ate " + p.getEatTime() + " ms");
+                    totalEatTime.addAndGet(p.getEatTime());
+                });
+        log.info("All philosophies spend " + totalEatTime + " ms on the dinner today");
 
     }
 }

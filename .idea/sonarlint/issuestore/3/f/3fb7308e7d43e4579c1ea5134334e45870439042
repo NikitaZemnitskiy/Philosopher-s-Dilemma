@@ -1,0 +1,12 @@
+
+[
+squid:S1069"9Replace this use of System.out or System.err by a logger.(„òªúÿÿÿÿ8Ç¢Œ„.
+V
+squid:S106M"9Replace this use of System.out or System.err by a logger.(²¾â¯8Ç¢Œ„.
+hsquid:UselessImportCheck"=Remove this unused import 'java.time.temporal.TemporalField'.(¡¶»ç8 ğòƒ.
+Vsquid:UselessImportCheck"+Remove this unused import 'java.util.Date'.(¸…¼ü8¢¸öƒ.
+dsquid:S2142/"FEither re-interrupt this method or rethrow the "InterruptedException".(ä ¹€8ìÆç‚.
+U
+squid:S106@"9Replace this use of System.out or System.err by a logger.(Ï¸üo8Ç¢Œ„.
+[
+squid:S1060"9Replace this use of System.out or System.err by a logger.(™èÍùùÿÿÿÿ8›Ş„.

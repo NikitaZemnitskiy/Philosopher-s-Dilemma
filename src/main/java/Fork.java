@@ -1,37 +1,38 @@
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
-
+@Slf4j
 public class Fork {
-    Filosoph owner = null;
+    private final static int TIME_OUT = 2;
+    Philosopher owner = null;
     private ReentrantLock reentrantLock = new ReentrantLock();
 
-    public boolean takeFork(Filosoph filosoph) {
-        try {
-            reentrantLock.tryLock(5000, TimeUnit.MILLISECONDS);
-        }
-        catch (InterruptedException e){
-            System.out.println(owner.getName()+" can't take a fork more than 5 second");
-            return false;
-        }
-        System.out.println(filosoph.getName()+" are taking the fork");
+    public boolean takeFork(Philosopher philosopher) throws InterruptedException {
+
+            if (!reentrantLock.tryLock(TIME_OUT, TimeUnit.SECONDS)){
+                log.info(owner.getName()+" can't take a fork more than "+TIME_OUT+" seconds");
+                return false;
+            }
+
+        log.info(philosopher.getName()+" is taking the fork");
         if(owner != null){
-            System.out.println(filosoph.getName() + " tried to take a fork, but this fork already had an owner - " + owner.getName());
-            return false;
+           throw new IllegalStateException(philosopher.getName() + " tried to take a fork, but this fork already had an owner - " + owner.getName());
         }
-        owner = filosoph;
+        owner = philosopher;
         return true;
     }
 
-    public void leftFork(Filosoph filosoph){
+    public void leftFork(Philosopher philosopher){
 
-        System.out.println(filosoph.getName()+" put his fork");
+        log.info(philosopher.getName()+" put his fork");
 
-        if(!owner.equals(filosoph)){
-            System.out.println(filosoph.getName()+ "are trying to put the fork, dut he is'nt an owner of this fork. The owner of this fork is "+owner.getName());
-            throw new IllegalStateException();
+        if(owner != philosopher){
+            throw new IllegalStateException(philosopher.getName()+
+                    "are trying to put the fork, dut he is'nt an owner of this fork. " +
+                    "The owner of this fork is "+ owner.getName());
         }
         owner=null;
         reentrantLock.unlock();
-
     }
 }
