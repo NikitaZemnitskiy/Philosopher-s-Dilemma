@@ -1,11 +1,18 @@
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.Instant;
-import java.time.temporal.TemporalField;
-import java.util.Date;
+import java.time.temporal.Temporal;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.atomic.AtomicLong;
+
 @Slf4j
 public class Philosopher implements Runnable {
+    private static AtomicLong totalEatTime = new AtomicLong();
+
+    public static AtomicLong getTotalEatTime() {
+        return totalEatTime;
+    }
+
     private int eatTimes = 0;
     private final Fork leftHandFork;
     private final Fork rightHandFork;
@@ -47,7 +54,7 @@ public class Philosopher implements Runnable {
                    Thread.sleep(10);
 
             } catch (InterruptedException e) {
-                log.info(getName() + " was interupt");
+                log.debug("{} was interupt", getName());
                 return;
             }
         }
@@ -56,14 +63,14 @@ public class Philosopher implements Runnable {
     public void eat() throws InterruptedException {
             if (!leftHandFork.takeFork(this)) {
                 if (rightHandFork.owner == this) {
-                    log.info(name + " don't hold a right hand fork now");
+                    log.debug("{} don't hold a right hand fork now", getName());
                     rightHandFork.leftFork(this);
                 }
                 return;
             }
             if (!rightHandFork.takeFork(this)) {
                 if (leftHandFork.owner == this) {
-                    log.info(name + " don't hold a left hand fork now");
+                    log.debug("{} don't hold a left hand fork now", getName());
                     leftHandFork.leftFork(this);
                 }
                 return;
@@ -76,7 +83,14 @@ public class Philosopher implements Runnable {
 
             Instant endEating = Instant.now();
             eatTime = (eatTime + (endEating.toEpochMilli() - startEating.toEpochMilli()));
-            log.info(name + " stoped dinner and he is thinking now");
+            log.debug("{} stoped dinner and he is thinking now", getName());
+    }
+
+    public void getStat (){
+        log.info("--------"+getName()+"----------");
+        log.info("{} ate {} times",getName(), getEatTimes());
+        log.info("{} ate {} ms",getName(), getEatTime());
+        totalEatTime.addAndGet(getEatTime());
     }
 }
 

@@ -11,11 +11,11 @@ public class Fork {
     public boolean takeFork(Philosopher philosopher) throws InterruptedException {
 
             if (!reentrantLock.tryLock(TIME_OUT, TimeUnit.SECONDS)){
-                log.info(owner.getName()+" can't take a fork more than "+TIME_OUT+" seconds");
+                log.debug("{} can't take a fork more than {} seconds", owner.getName(), TIME_OUT);
                 return false;
             }
 
-        log.info(philosopher.getName()+" is taking the fork");
+        log.debug("{} is taking the fork", philosopher.getName());
         if(owner != null){
            throw new IllegalStateException(philosopher.getName() + " tried to take a fork, but this fork already had an owner - " + owner.getName());
         }
@@ -25,11 +25,11 @@ public class Fork {
 
     public void leftFork(Philosopher philosopher){
 
-        log.info(philosopher.getName()+" put his fork");
+        log.debug("{} put his fork",philosopher.getName());
 
         if(owner != philosopher){
             throw new IllegalStateException(philosopher.getName()+
-                    "are trying to put the fork, dut he is'nt an owner of this fork. " +
+                    "is trying to put the fork, but he isn't an owner of this fork." +
                     "The owner of this fork is "+ owner.getName());
         }
         owner=null;

@@ -15,29 +15,23 @@ public class Main {
             forkList.add(new Fork());
         }
         List<Philosopher> philosophers = new ArrayList<>();
-        philosophers.add(new Philosopher(forkList.get(0), forkList.get(1), "nikita", 10, 20));
-        philosophers.add(new Philosopher(forkList.get(1), forkList.get(2), "aristotel", 15, 25));
-        philosophers.add(new Philosopher(forkList.get(2), forkList.get(3), "platon", 20, 27));
-        philosophers.add(new Philosopher(forkList.get(3), forkList.get(4), "shopenhauer", 5, 22));
-        philosophers.add(new Philosopher(forkList.get(4), forkList.get(0), "nitsche", 10, 20));
+        philosophers.add(new Philosopher(forkList.get(0), forkList.get(1), "nikita", 100, 200));
+        philosophers.add(new Philosopher(forkList.get(1), forkList.get(2), "aristotel", 150, 250));
+        philosophers.add(new Philosopher(forkList.get(2), forkList.get(3), "platon", 200, 270));
+        philosophers.add(new Philosopher(forkList.get(3), forkList.get(4), "shopenhauer", 50, 220));
+        philosophers.add(new Philosopher(forkList.get(4), forkList.get(0), "nitsche", 100, 200));
 
-        ExecutorService philosophersThreadPool = Executors.newFixedThreadPool(5);
+        ExecutorService philosophersThreadPool = Executors.newFixedThreadPool(philosophers.size());
         for (Philosopher p : philosophers) {
             philosophersThreadPool.submit(p);
         }
         Thread.sleep(12000);
-        if (philosophersThreadPool.shutdownNow().size() != 0) {
+        if (!philosophersThreadPool.shutdownNow().isEmpty()) {
             throw new IllegalStateException("Failed threads shutdown");
         }
-        AtomicLong totalEatTime = new AtomicLong();
-        philosophers.stream().forEach(
-                p -> {
-                    log.info("--------"+p.getName()+"----------");
-                    log.info(p.getName() + " ate " + p.getEatTimes() + " times");
-                    log.info(p.getName() + " ate " + p.getEatTime() + " ms");
-                    totalEatTime.addAndGet(p.getEatTime());
-                });
-        log.info("All philosophies spend " + totalEatTime + " ms on the dinner today");
+
+        philosophers.forEach(Philosopher::getStat);
+        log.info("All philosophies spend {} ms on the dinner today", philosophers.get(0).getTotalEatTime());
 
     }
 }
